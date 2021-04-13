@@ -2,6 +2,7 @@
 class Settings:
     # actions:
     NUMBER_GENES = 20
+    CHROMOSOME_POPULATION = 100
     DOWN = 'DOWN'
     LEFT = 'LEFT'
     RIGHT = 'RIGHT'
