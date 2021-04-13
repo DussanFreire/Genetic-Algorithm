@@ -43,16 +43,20 @@ class GenerationFactory:
             mut_prob = np.random.random(size=1)
             if crossover_prob <= Settings.CROSSOVER_PROB:
                 first_chromosome, second_chromosome = GenerationFactory._crossover_chromosomes(first_chromosome, second_chromosome)
+                # print(f"Cr1 = {first_chromosome.genes}; Cr2 = {second_chromosome.genes}")
             if mut_prob <= Settings.MUTATION_PROB:
                 first_chromosome, second_chromosome = GenerationFactory._mutate_chromosomes(first_chromosome, second_chromosome)
+            first_chromosome.fitness_function = FitnessFunctionCollection.count_ones(first_chromosome.genes)
+            second_chromosome.fitness_function = FitnessFunctionCollection.count_ones(second_chromosome.genes)
             new_chromosomes_list.append(first_chromosome)
             new_chromosomes_list.append(second_chromosome)
+        GenerationFactory._set_reproduction_probability(new_chromosomes_list)
         return new_chromosomes_list
 
     @staticmethod
     def _generate_random_genes():
         random_genes = np.random.random(size=Settings.NUMBER_GENES)
-        random_genes = [round(num, 0) for num in random_genes] * Settings.HIGHER_GENE
+        random_genes = [int(round(num, 0)) for num in random_genes] * Settings.HIGHER_GENE
         return random_genes
 
     @staticmethod
@@ -64,23 +68,29 @@ class GenerationFactory:
     @staticmethod
     def _select_two_chromosomes(chromosomes):
         first_chr = second_chr = None
+        # print(list(map(lambda c: c.reproduction_probability * 100, chromosomes)))
         while first_chr == second_chr:
-            first_chr, second_chr = random.choices(chromosomes, weights=(
-                [chromosome.reproduction_probability for chromosome in chromosomes]), k=2)
+            first_chr, second_chr = random.choices(chromosomes, weights=(list(map(lambda c: c.reproduction_probability * 100, chromosomes))), k=2)
         return first_chr, second_chr
 
     @staticmethod
     def _crossover_chromosomes(first_chromosome, second_chromosome):
-        gene_index = int(round(np.random.random(size=1)[0] * Settings.HIGHER_GENE, 0))
+        gene_index = int(round(np.random.random(size=1)[0] * Settings.NUMBER_GENES, 0))
+        # print("Cross over----------------")
+        # print(f"Cr1 = {first_chromosome.genes}; Cr2 = {second_chromosome.genes}; Indice = {gene_index}")
         first_chr_mutation = second_chromosome.genes[gene_index:]
         second_chr_mutation = first_chromosome.genes[gene_index:]
         first_chromosome.genes[gene_index:] = first_chr_mutation
         second_chromosome.genes[gene_index:] = second_chr_mutation
+        # print(f"Cr1 = {first_chromosome.genes}; Cr2 = {second_chromosome.genes}")
         return first_chromosome, second_chromosome
 
     @staticmethod
     def _mutate_chromosomes(first_chromosome, second_chromosome):
-        gene_index = int(round(np.random.random(size=1)[0] * Settings.HIGHER_GENE, 0)) + 1
+        gene_index = int(round(np.random.random(size=1)[0] * Settings.NUMBER_GENES, 0)) + 1
+        # print("Mutation----------------")
+        # print(f"Cr1 = {first_chromosome.genes}; Cr2 = {second_chromosome.genes}; Indice = {gene_index}")
         first_chromosome.genes[gene_index] = first_chromosome.genes[gene_index] + 1 if first_chromosome.genes[gene_index] < Settings.HIGHER_GENE else first_chromosome.genes[gene_index] - 1
         second_chromosome.genes[gene_index] = second_chromosome.genes[gene_index] + 1 if second_chromosome.genes[gene_index] < Settings.HIGHER_GENE else second_chromosome.genes[gene_index] - 1
+        # print(f"Cr1 = {first_chromosome.genes}; Cr2 = {second_chromosome.genes}")
         return first_chromosome, second_chromosome
