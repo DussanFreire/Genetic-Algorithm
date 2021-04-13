@@ -5,3 +5,4 @@ class Poblation:
         size = 0
         current_generation = 0
         current_max_ff = 0
+        algo = 0
