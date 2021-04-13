@@ -1,6 +1,6 @@
 
 
-class Chromosomes:
+class Chromosome:
     def __init__(self):
         genes = None
         fitness_function = None
