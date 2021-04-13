@@ -1,5 +1,4 @@
 
-
 class Chromosome:
     def __init__(self):
         genes = None
