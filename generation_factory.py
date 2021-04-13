@@ -9,31 +9,60 @@ import random
 class GenerationFactory:
 
     @staticmethod
-    def chromosomes_generator(current_generation, size_expected):
+    def random_chromosomes_generator():
         chromosomes_list = []
-        for i in range(0, size_expected):
+        np.random.seed(42)
+        for i in range(0, Settings.CHROMOSOME_POPULATION):
             chromosome = Chromosome()
-            chromosome.genes = GenerationFactory.generate_random_genes
+            chromosome.genes = GenerationFactory._generate_random_genes()
             chromosome.fitness_function = FitnessFunctionCollection.count_ones(chromosome.genes)
             chromosomes_list.append(chromosome)
-        GenerationFactory.set_reproduction_probability(chromosomes_list)
+        GenerationFactory._set_reproduction_probability(chromosomes_list)
         return chromosomes_list
 
     @staticmethod
-    def generate_random_genes():
+    def search_the_most_powerfull_chr(chromosomes_list):
+        max_ffs = []
+        ff_mean = []
+        iteration = 0
+        while iteration < Settings.ITERATIONS and (max_ffs == [] or max_ffs[-1] != Settings.MAX_FF):
+            new_chromosomes_list = GenerationFactory.create_next_generation(chromosomes_list)
+            ff_list = list(map(lambda x: x.fitness_function, new_chromosomes_list))
+            max_ffs.append(max(ff_list))
+            ff_mean.append(sum(ff_list) / len(ff_list))
+            iteration += 1
+        return max_ffs, ff_mean
+
+    @staticmethod
+    def create_next_generation(chromosomes_list):
+        new_chromosomes_list = []
         np.random.seed(42)
+        while len(new_chromosomes_list) <= Settings.CHROMOSOME_POPULATION:
+            first_chromosome, second_chromosome = GenerationFactory._select_two_chromosomes(chromosomes_list)
+            crossover_prob = np.random.random(size=1)
+            mut_prob = np.random.random(size=1)
+            if crossover_prob <= Settings.CROSSOVER_PROB:
+                first_chromosome, second_chromosome = GenerationFactory._crossover_chromosomes(first_chromosome, second_chromosome)
+            if mut_prob <= Settings.MUTATION_PROB:
+                first_chromosome, second_chromosome = GenerationFactory._mutate_chromosomes(first_chromosome, second_chromosome)
+            new_chromosomes_list.append(first_chromosome)
+            new_chromosomes_list.append(second_chromosome)
+        return new_chromosomes_list
+
+    @staticmethod
+    def _generate_random_genes():
         random_genes = np.random.random(size=Settings.NUMBER_GENES)
-        random_genes = [round(num, 1) for num in random_genes]
+        random_genes = [round(num, 0) for num in random_genes] * Settings.HIGHER_GENE
         return random_genes
 
     @staticmethod
-    def set_reproduction_probability(chromosomes_list):
-        ff_total = reduce(lambda a, b: a.fitness_function + b.fitness_function, chromosomes_list)
+    def _set_reproduction_probability(chromosomes_list):
+        ff_total = reduce(lambda a, b: a + b, map(lambda x: x.fitness_function, chromosomes_list))
         for chromosome in chromosomes_list:
             chromosome.reproduction_probability = chromosome.fitness_function / ff_total
 
     @staticmethod
-    def select_two_chromosomes(chromosomes):
+    def _select_two_chromosomes(chromosomes):
         first_chr = second_chr = None
         while first_chr == second_chr:
             first_chr, second_chr = random.choices(chromosomes, weights=(
@@ -41,18 +70,17 @@ class GenerationFactory:
         return first_chr, second_chr
 
     @staticmethod
-    def crossover_chromosomes(first_chromosome, second_chromosome, number_of_genes=3):
-        first_chr_mutation = second_chromosome.genes[-number_of_genes]
-        second_chr_mutation = first_chromosome.genes[-number_of_genes]
-        first_chromosome.genes[-number_of_genes] = first_chr_mutation
-        second_chromosome.genes[-number_of_genes] = second_chr_mutation
+    def _crossover_chromosomes(first_chromosome, second_chromosome):
+        gene_index = int(round(np.random.random(size=1)[0] * Settings.HIGHER_GENE, 0))
+        first_chr_mutation = second_chromosome.genes[gene_index:]
+        second_chr_mutation = first_chromosome.genes[gene_index:]
+        first_chromosome.genes[gene_index:] = first_chr_mutation
+        second_chromosome.genes[gene_index:] = second_chr_mutation
         return first_chromosome, second_chromosome
 
     @staticmethod
-    def mutate_chromosomes(first_chromosome, second_chromosome, number_of_genes=3):
-        gene_index = np.random.random(size=1) * number_of_genes
-        aux = first_chromosome.genes[gene_index]
-        first_chromosome.genes[gene_index] = second_chromosome.genes[gene_index]
-        second_chromosome.genes[gene_index] = aux
+    def _mutate_chromosomes(first_chromosome, second_chromosome):
+        gene_index = int(round(np.random.random(size=1)[0] * Settings.HIGHER_GENE, 0)) + 1
+        first_chromosome.genes[gene_index] = first_chromosome.genes[gene_index] + 1 if first_chromosome.genes[gene_index] < Settings.HIGHER_GENE else first_chromosome.genes[gene_index] - 1
+        second_chromosome.genes[gene_index] = second_chromosome.genes[gene_index] + 1 if second_chromosome.genes[gene_index] < Settings.HIGHER_GENE else second_chromosome.genes[gene_index] - 1
         return first_chromosome, second_chromosome
-
