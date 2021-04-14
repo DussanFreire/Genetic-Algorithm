@@ -1,6 +1,7 @@
 import numpy as np
 from settings import Settings
 import random
+from chromosome import Chromosome
 
 
 class GenesAction:
@@ -47,3 +48,9 @@ class GenesAction:
         random_genes = [int(round(num, 0)) for num in random_genes] * Settings.HIGHER_GENE
         return random_genes
 
+    @staticmethod
+    def create_successor_from_parents(parents):
+        new_first_chromosome = Chromosome()
+        new_first_chromosome.fathers = parents
+        new_first_chromosome.genes = parents[0].genes[:]
+        return new_first_chromosome

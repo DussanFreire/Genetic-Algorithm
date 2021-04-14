@@ -21,51 +21,55 @@ class GenerationFactory:
         return chromosomes_list
 
     @staticmethod
-    def search_the_most_powerful_ff(chromosomes_list):
-        ff_mean = []
-        max_ffs = []
+    def search_the_most_powerful_ff(initial_population):
+        current_generation = initial_population[:]
+        # get information from the initial population
+        max_ffs = [GenerationFactory.get_highest_ff(current_generation)]
+        ff_mean = [GenerationFactory.get_ff_mean(current_generation)]
         iteration = 0
-        current_generation = chromosomes_list[:]
         while iteration < Settings.ITERATIONS and (max_ffs == [] or max_ffs[-1] != Settings.MAX_FF):
-            new_chromosomes_list = GenerationFactory.create_next_generation(current_generation)
-            ff_list = list(map(lambda x: x.fitness_function, new_chromosomes_list))
-            max_ffs.append(max(ff_list))
-            ff_mean.append(sum(ff_list) / len(ff_list))
-            print(max_ffs[-1], ff_mean[-1])
+            # create next generation
+            next_generation = GenerationFactory.create_next_generation(current_generation)
+            # get generation info
+            max_ffs.append(GenerationFactory.get_highest_ff(current_generation))
+            ff_mean.append(GenerationFactory.get_ff_mean(current_generation))
+            # set new current generation
+            current_generation = next_generation[:]
+            # Increment iteration
             iteration += 1
-            current_generation = new_chromosomes_list[:]
         return max_ffs, ff_mean
 
     @staticmethod
-    def create_next_generation(chromosomes_list):
-        new_chromosomes_list = []
+    def create_next_generation(current_generation):
+        next_generation = []
         # np.random.seed(42)
-        while len(new_chromosomes_list) <= Settings.CHROMOSOME_POPULATION - 2:
-            first_chromosome, second_chromosome = GenesAction.select_two_chromosomes(chromosomes_list)
-            crossover_prob = np.random.random(size=1)
-            mut_prob = np.random.random(size=1)
-            new_first_chromosome = Chromosome()
-            new_second_chromosome = Chromosome()
-
-            new_first_chromosome.fathers = (first_chromosome, second_chromosome)
-            new_first_chromosome.genes = first_chromosome.genes[:]
-
-            new_second_chromosome.fathers = (first_chromosome, second_chromosome)
-            new_second_chromosome.genes = second_chromosome.genes[:]
-
+        while len(next_generation) <= Settings.CHROMOSOME_POPULATION - 2:
+            # select chromosomes
+            first_chromosome, second_chromosome = GenesAction.select_two_chromosomes(current_generation)
+            # find probabilities
+            crossover_prob, mut_prob = np.random.random(), np.random.random()
+            # create successors from chromosomes
+            new_first_chromosome = GenesAction.create_successor_from_parents((first_chromosome, second_chromosome))
+            new_second_chromosome = GenesAction.create_successor_from_parents((second_chromosome, first_chromosome))
+            # crossover
             if crossover_prob <= Settings.CROSSOVER_PROB:
                 new_first_chromosome, new_second_chromosome = GenesAction.crossover_chromosomes(new_first_chromosome,
                                                                                                 new_second_chromosome)
+            # mutation
             if mut_prob <= Settings.MUTATION_PROB:
                 new_first_chromosome, new_second_chromosome = GenesAction.mutate_chromosomes(new_first_chromosome,
                                                                                              new_second_chromosome)
+            # set ff
             new_first_chromosome.fitness_function = FitnessFunctionCollection.count_ones(new_first_chromosome.genes)
             new_second_chromosome.fitness_function = FitnessFunctionCollection.count_ones(new_second_chromosome.genes)
-            new_chromosomes_list.append(new_first_chromosome)
-            new_chromosomes_list.append(new_second_chromosome)
-        GenerationFactory._set_reproduction_probability(new_chromosomes_list)
-        GenerationFactory.display_chromosome(new_chromosomes_list)
-        return new_chromosomes_list
+            # append to the next generation
+            next_generation.append(new_first_chromosome)
+            next_generation.append(new_second_chromosome)
+        # set reproduction prob.
+        GenerationFactory._set_reproduction_probability(next_generation)
+        # show process for debug
+        # GenerationFactory.display_chromosome(next_generation)
+        return next_generation
 
     @staticmethod
     def _set_reproduction_probability(chromosomes_list):
@@ -84,3 +88,13 @@ class GenerationFactory:
             print(f"Father 1 genes  = {None if chromosome.fathers is None else chromosome.fathers[0].genes}")
             print(f"Father 2 genes  = {None if chromosome.fathers is None else chromosome.fathers[1].genes}")
             print(f"Genes:            {chromosome.genes}")
+
+    @staticmethod
+    def get_highest_ff(generation):
+        ff_list = list(map(lambda x: x.fitness_function, generation))
+        return max(ff_list)
+
+    @staticmethod
+    def get_ff_mean(generation):
+        ff_list = list(map(lambda x: x.fitness_function, generation))
+        return sum(ff_list) / len(ff_list)
