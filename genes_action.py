@@ -1,12 +1,13 @@
 import numpy as np
 from settings import Settings
 import random
-from chromosome import Chromosome
+
 
 class GenesAction:
     @staticmethod
     def select_two_chromosomes(chromosomes):
-        first_chr = second_chr = None
+        first_chr = None
+        second_chr = None
         # print(list(map(lambda c: c.reproduction_probability * 100, chromosomes)))
         while first_chr == second_chr:
             first_chr, second_chr = random.choices(chromosomes, weights=(
@@ -15,15 +16,20 @@ class GenesAction:
 
     @staticmethod
     def crossover_chromosomes(first_chromosome, second_chromosome):
-        gene_index = int(round(np.random.random(size=1)[0] * Settings.NUMBER_GENES, 0))
-        new_first_chr = new_second_chr = Chromosome()
-        new_first_chr.genes = first_chromosome.genes[:gene_index] + second_chromosome.genes[gene_index:]
-        new_second_chr.genes = second_chromosome.genes[:gene_index] + first_chromosome.genes[gene_index:]
-        return new_first_chr, new_second_chr
+        gene_index = int(round(np.random.random(size=1)[0] * Settings.NUMBER_GENES, 0)) - 1
+        first_chr_genes = first_chromosome.genes[:]
+        second_chr_genes = second_chromosome.genes[:]
+        first_chromosome.actions_made.append(f"Crossover, index: {gene_index}")
+        second_chromosome.actions_made.append(f"Crossover, index: {gene_index}")
+        first_chromosome.genes = first_chr_genes[:gene_index] + second_chr_genes[gene_index:]
+        second_chromosome.genes = second_chr_genes[:gene_index] + first_chr_genes[gene_index:]
+        return first_chromosome, second_chromosome
 
     @staticmethod
     def mutate_chromosomes(first_chromosome, second_chromosome):
-        gene_index = int(round(np.random.random(size=1)[0] * Settings.NUMBER_GENES, 0)) + 1
+        gene_index = int(round(np.random.random(size=1)[0] * Settings.NUMBER_GENES, 0)) -1
+        first_chromosome.actions_made.append(f"Mutation, index: {gene_index}")
+        second_chromosome.actions_made.append(f"Mutation, index: {gene_index}")
         # print("Mutation----------------")
         # print(f"Cr1 = {first_chromosome.genes}; Cr2 = {second_chromosome.genes}; Indice = {gene_index}")
         first_chromosome.genes[gene_index] = first_chromosome.genes[gene_index] + 1 if first_chromosome.genes[

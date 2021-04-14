@@ -5,3 +5,4 @@ class Chromosome:
         self.fitness_function = None
         self.reproduction_probability = None
         self.fathers = None
+        self.actions_made = []

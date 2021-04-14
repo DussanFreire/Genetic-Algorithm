@@ -22,35 +22,40 @@ class GenerationFactory:
 
     @staticmethod
     def search_the_most_powerful_ff(chromosomes_list):
-        ff_mean = max_ffs = []
+        ff_mean = []
+        max_ffs = []
         iteration = 0
+        current_generation = chromosomes_list[:]
         while iteration < Settings.ITERATIONS and (max_ffs == [] or max_ffs[-1] != Settings.MAX_FF):
-            new_chromosomes_list = GenerationFactory.create_next_generation(chromosomes_list)
+            new_chromosomes_list = GenerationFactory.create_next_generation(current_generation)
             ff_list = list(map(lambda x: x.fitness_function, new_chromosomes_list))
             max_ffs.append(max(ff_list))
             ff_mean.append(sum(ff_list) / len(ff_list))
+            print(max_ffs[-1], ff_mean[-1])
             iteration += 1
+            current_generation = new_chromosomes_list[:]
         return max_ffs, ff_mean
 
     @staticmethod
     def create_next_generation(chromosomes_list):
         new_chromosomes_list = []
-        np.random.seed(42)
-        while len(new_chromosomes_list) <= Settings.CHROMOSOME_POPULATION:
+        # np.random.seed(42)
+        while len(new_chromosomes_list) <= Settings.CHROMOSOME_POPULATION - 2:
             first_chromosome, second_chromosome = GenesAction.select_two_chromosomes(chromosomes_list)
             crossover_prob = np.random.random(size=1)
             mut_prob = np.random.random(size=1)
-            new_first_chromosome = new_second_chromosome = Chromosome()
+            new_first_chromosome = Chromosome()
+            new_second_chromosome = Chromosome()
 
-            new_first_chromosome.fathers=(first_chromosome, second_chromosome)
-            new_first_chromosome.genes = first_chromosome.genes
+            new_first_chromosome.fathers = (first_chromosome, second_chromosome)
+            new_first_chromosome.genes = first_chromosome.genes[:]
 
-            new_second_chromosome.fathers=(first_chromosome, second_chromosome)
-            new_second_chromosome.genes = second_chromosome.genes
+            new_second_chromosome.fathers = (first_chromosome, second_chromosome)
+            new_second_chromosome.genes = second_chromosome.genes[:]
 
             if crossover_prob <= Settings.CROSSOVER_PROB:
-                new_first_chromosome, new_second_chromosome = GenesAction.crossover_chromosomes(first_chromosome,
-                                                                                                second_chromosome)
+                new_first_chromosome, new_second_chromosome = GenesAction.crossover_chromosomes(new_first_chromosome,
+                                                                                                new_second_chromosome)
             if mut_prob <= Settings.MUTATION_PROB:
                 new_first_chromosome, new_second_chromosome = GenesAction.mutate_chromosomes(new_first_chromosome,
                                                                                              new_second_chromosome)
@@ -60,20 +65,22 @@ class GenerationFactory:
             new_chromosomes_list.append(new_second_chromosome)
         GenerationFactory._set_reproduction_probability(new_chromosomes_list)
         GenerationFactory.display_chromosome(new_chromosomes_list)
-        print(len(new_chromosomes_list))
         return new_chromosomes_list
 
     @staticmethod
     def _set_reproduction_probability(chromosomes_list):
-        ff_total = reduce(lambda a, b: (a + b) * 100, map(lambda x: x.fitness_function, chromosomes_list))
+        ff_total = reduce(lambda a, b: (a + b), map(lambda x: x.fitness_function, chromosomes_list))
         for chromosome in chromosomes_list:
-            chromosome.reproduction_probability = chromosome.fitness_function / ff_total
+            chromosome.reproduction_probability = (chromosome.fitness_function / ff_total) * 100
 
     @staticmethod
     def display_chromosome(chromosomes_list):
+        print("******************************************************************")
         for chromosome in chromosomes_list:
             print("---------------------------")
             print(f"FF  = {chromosome.fitness_function}")
             print(f"Prob  = {chromosome.reproduction_probability}")
-            print("Genes:")
-            print(chromosome.genes)
+            print(f"Action/s made   = {chromosome.actions_made}")
+            print(f"Father 1 genes  = {None if chromosome.fathers is None else chromosome.fathers[0].genes}")
+            print(f"Father 2 genes  = {None if chromosome.fathers is None else chromosome.fathers[1].genes}")
+            print(f"Genes:            {chromosome.genes}")
