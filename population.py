@@ -56,6 +56,7 @@ class Population:
         pl.legend()
         pl.show()
 
+
 # 1ro ----------------------------------
 # experimentar 20 veces
 # pc = 0.7
@@ -87,7 +88,7 @@ class Population:
 # 20 genes
 # 100 cromosomas
 # ¿Cu´al es la mejor opci´on de par´ametros seg´un los resultados obtenidos anteriormente? ¿Por qu´e?p = Population()
-p = Population
+p = Population()
 p.create_first_generation()
 max_ff, min_ff, mean_ff = p.find_the_most_powerful_chr()
 df = p.get_results_in_dataframe(max_ff, min_ff, mean_ff)
