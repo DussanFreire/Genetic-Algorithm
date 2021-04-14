@@ -4,3 +4,4 @@ class Chromosome:
         self.genes = None
         self.fitness_function = None
         self.reproduction_probability = None
+        self.fathers = None
