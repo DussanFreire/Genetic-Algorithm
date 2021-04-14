@@ -4,7 +4,8 @@ from fitness_function_collection import FitnessFunctionCollection
 from settings import Settings
 from functools import *
 from genes_action import GenesAction
-
+from pandas import DataFrame
+import pandas as pd
 
 class GenerationFactory:
 
@@ -25,6 +26,7 @@ class GenerationFactory:
         current_generation = initial_population[:]
         # get information from the initial population
         max_ffs = [GenerationFactory.get_highest_ff(current_generation)]
+        min_ffs = [GenerationFactory.get_lowest_ff(current_generation)]
         ff_mean = [GenerationFactory.get_ff_mean(current_generation)]
         iteration = 0
         while iteration < Settings.ITERATIONS and (max_ffs == [] or max_ffs[-1] != Settings.MAX_FF):
@@ -32,12 +34,13 @@ class GenerationFactory:
             next_generation = GenerationFactory.create_next_generation(current_generation)
             # get generation info
             max_ffs.append(GenerationFactory.get_highest_ff(current_generation))
+            min_ffs.append(GenerationFactory.get_lowest_ff(current_generation))
             ff_mean.append(GenerationFactory.get_ff_mean(current_generation))
             # set new current generation
             current_generation = next_generation[:]
             # Increment iteration
             iteration += 1
-        return max_ffs, ff_mean
+        return max_ffs, min_ffs, ff_mean
 
     @staticmethod
     def create_next_generation(current_generation):
@@ -93,6 +96,11 @@ class GenerationFactory:
     def get_highest_ff(generation):
         ff_list = list(map(lambda x: x.fitness_function, generation))
         return max(ff_list)
+
+    @staticmethod
+    def get_lowest_ff(generation):
+        ff_list = list(map(lambda x: x.fitness_function, generation))
+        return min(ff_list)
 
     @staticmethod
     def get_ff_mean(generation):
