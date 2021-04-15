@@ -2,22 +2,14 @@ from pandas import DataFrame
 import matplotlib.pyplot as pl
 
 
-def _get_results_in_dataframe(max_ffs, min_ff, ff_means):
-    index = ["Initial State"] + list(range(1, len(max_ffs)))
-    df = DataFrame(
-        {'Generation': list(range(0, len(max_ffs))), 'Max FF': max_ffs, 'Min FF': min_ff, 'FF Mean': ff_means},
-        index=[index])
-    return df
-
-
 class Report:
     def __init__(self, max_ffs, min_ffs, mean_ffs, id):
         self.number_of_experiment = id
         self.max_ffs_for_generation = max_ffs
         self.min_ffs_for_generation = min_ffs
         self.mean_ffs_for_generation = mean_ffs
-        self.df_data = _get_results_in_dataframe(max_ffs, min_ffs, mean_ffs)
         self.number_of_generations = len(max_ffs)
+        self.df_data = self.get_results_in_dataframe()
 
     def graficar_x_vs_y_plot(self, xlabel, ylabel):
         self.df_data.plot(x=xlabel, y=ylabel, color='red', title='scatter plot : Tip by Total bill', alpha=1)
@@ -26,6 +18,12 @@ class Report:
         pl.ylabel(ylabel)
         pl.legend()
         pl.show()
+
+    def get_results_in_dataframe(self):
+        index = ["Initial State"] + list(range(1, self.number_of_generations))
+        df = DataFrame({'Generation': list(range(0, self.number_of_generations)), 'Max FF': self.max_ffs_for_generation,
+                        'Min FF': self.min_ffs_for_generation, 'FF Mean': self.mean_ffs_for_generation}, index=[index])
+        return df
 
     def display_details(self):
         print(f"Experiment:  {self.number_of_experiment}")

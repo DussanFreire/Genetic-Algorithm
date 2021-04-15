@@ -25,16 +25,18 @@ class GenerationFactory:
         max_ffs = [GenerationFactory.get_highest_ff(current_generation)]
         min_ffs = [GenerationFactory.get_lowest_ff(current_generation)]
         ff_mean = [GenerationFactory.get_ff_mean(current_generation)]
-        while max_ffs == [] or max_ffs[-1] != settings.MAX_FF:
+        iter = 0
+        while (max_ffs == [] or max_ffs[-1] != settings.MAX_FF) and iter < settings.MAX_GENERATIONS:
             # create next generation
             next_generation = GenerationFactory.create_next_generation(current_generation, settings)
             # get generation info
-            max_ffs.append(GenerationFactory.get_highest_ff(current_generation))
-            min_ffs.append(GenerationFactory.get_lowest_ff(current_generation))
-            ff_mean.append(GenerationFactory.get_ff_mean(current_generation))
+            max_ffs.append(GenerationFactory.get_highest_ff(next_generation))
+            min_ffs.append(GenerationFactory.get_lowest_ff(next_generation))
+            ff_mean.append(GenerationFactory.get_ff_mean(next_generation))
             # set new current generation
             current_generation = next_generation[:]
             # Increment iteration
+            iter += 1
         return max_ffs, min_ffs, ff_mean
 
     @staticmethod

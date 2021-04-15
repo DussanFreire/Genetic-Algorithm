@@ -31,7 +31,8 @@ class Population:
             reports.append(self.find_the_most_powerful_chr(iteration))
             iteration += 1
         return reports
-        # 1ro ----------------------------------
+
+# 1ro ----------------------------------
 
 # p = Population()
 # reports = p.run_experiment()
