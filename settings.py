@@ -7,4 +7,4 @@ class Settings:
     CROSSOVER_PROB = 0.7
     MUTATION_PROB = 0.001
     MAX_FF = 20
-    MAX_GENERATIONS = 50
+    MAX_GENERATIONS = 100

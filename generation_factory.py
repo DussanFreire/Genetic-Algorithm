@@ -25,7 +25,7 @@ class GenerationFactory:
         max_ffs = [GenerationFactory.get_highest_ff(current_generation)]
         min_ffs = [GenerationFactory.get_lowest_ff(current_generation)]
         ff_mean = [GenerationFactory.get_ff_mean(current_generation)]
-        iter = 0
+        iter = 1
         while (max_ffs == [] or max_ffs[-1] != settings.MAX_FF) and iter < settings.MAX_GENERATIONS:
             # create next generation
             next_generation = GenerationFactory.create_next_generation(current_generation, settings)
