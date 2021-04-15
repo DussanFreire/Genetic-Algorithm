@@ -1,5 +1,4 @@
 import numpy as np
-from settings import Settings
 import random
 from chromosome import Chromosome
 
@@ -16,8 +15,8 @@ class GenesAction:
         return first_chr, second_chr
 
     @staticmethod
-    def crossover_chromosomes(first_chromosome, second_chromosome):
-        gene_index = int(round(np.random.random(size=1)[0] * Settings.NUMBER_GENES, 0)) - 1
+    def crossover_chromosomes(first_chromosome, second_chromosome, settings):
+        gene_index = int(round(np.random.random(size=1)[0] * settings.NUMBER_GENES, 0)) - 1
         first_chr_genes = first_chromosome.genes[:]
         second_chr_genes = second_chromosome.genes[:]
         first_chromosome.actions_made.append(f"Crossover, index: {gene_index}")
@@ -27,25 +26,25 @@ class GenesAction:
         return first_chromosome, second_chromosome
 
     @staticmethod
-    def mutate_chromosomes(first_chromosome, second_chromosome):
-        gene_index = int(round(np.random.random(size=1)[0] * Settings.NUMBER_GENES, 0)) -1
+    def mutate_chromosomes(first_chromosome, second_chromosome, settings):
+        gene_index = int(round(np.random.random(size=1)[0] * settings.NUMBER_GENES, 0)) -1
         first_chromosome.actions_made.append(f"Mutation, index: {gene_index}")
         second_chromosome.actions_made.append(f"Mutation, index: {gene_index}")
         # print("Mutation----------------")
         # print(f"Cr1 = {first_chromosome.genes}; Cr2 = {second_chromosome.genes}; Indice = {gene_index}")
         first_chromosome.genes[gene_index] = first_chromosome.genes[gene_index] + 1 if first_chromosome.genes[
-                                                                                           gene_index] < Settings.HIGHER_GENE else \
+                                                                                           gene_index] < settings.HIGHER_GENE else \
             first_chromosome.genes[gene_index] - 1
         second_chromosome.genes[gene_index] = second_chromosome.genes[gene_index] + 1 if second_chromosome.genes[
-                                                                                             gene_index] < Settings.HIGHER_GENE else \
+                                                                                             gene_index] < settings.HIGHER_GENE else \
             second_chromosome.genes[gene_index] - 1
         # print(f"Cr1 = {first_chromosome.genes}; Cr2 = {second_chromosome.genes}")
         return first_chromosome, second_chromosome
 
     @staticmethod
-    def generate_random_genes():
-        random_genes = np.random.random(size=Settings.NUMBER_GENES)
-        random_genes = [int(round(num, 0)) for num in random_genes] * Settings.HIGHER_GENE
+    def generate_random_genes(settings):
+        random_genes = np.random.random(size=settings.NUMBER_GENES)
+        random_genes = [int(round(num, 0)) for num in random_genes] * settings.HIGHER_GENE
         return random_genes
 
     @staticmethod
