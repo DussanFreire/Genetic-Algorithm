@@ -9,7 +9,7 @@ class GenerationFactory:
     @staticmethod
     def random_chromosomes_generator(settings):
         chromosomes_list = []
-        np.random.seed(42)
+        # np.random.seed(42)
         for i in range(0, settings.CHROMOSOME_POPULATION):
             chromosome = Chromosome()
             chromosome.genes = GenesAction.generate_random_genes(settings)
@@ -75,7 +75,7 @@ class GenerationFactory:
     def _set_reproduction_probability(chromosomes_list):
         ff_total = reduce(lambda a, b: (a + b), map(lambda x: x.fitness_function, chromosomes_list))
         for chromosome in chromosomes_list:
-            chromosome.reproduction_probability = (chromosome.fitness_function / ff_total) * 100
+            chromosome.reproduction_probability = (chromosome.fitness_function / ff_total)
 
     @staticmethod
     def display_chromosome(chromosomes_list):

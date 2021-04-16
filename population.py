@@ -1,6 +1,7 @@
 from generation_factory import GenerationFactory
 from settings import Settings
 from report import Report
+import numpy as np
 
 
 class Population:
@@ -14,18 +15,12 @@ class Population:
     def find_the_most_powerful_chr(self, id):
         max_ffs, min_ffs, ff_means = GenerationFactory.search_the_most_powerful_ff(self.chromosomes, self.setting)
         generation_report = Report(max_ffs, min_ffs, ff_means, id)
-        # i = 0
-        # for max_ff in self.max_ffs:
-        #     print(f"Iteration {'Initial Population' if i == 0 else i}-----------------")
-        #     print(f"Max FF: {max_ff}")
-        #     print(f"Min FF: {self.min_ffs[i - 1]}")
-        #     print(f"Mean FF: {self.ff_means[i - 1]}")
-        #     i += 1
         return generation_report
 
     def run_experiment(self):
         iteration = 0
         reports = []
+        np.random.seed(47)
         while iteration < self.setting.ITERATIONS:
             self.create_first_generation()
             reports.append(self.find_the_most_powerful_chr(iteration))
