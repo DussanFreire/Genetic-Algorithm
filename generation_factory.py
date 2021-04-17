@@ -37,7 +37,7 @@ class GenerationFactory:
             current_generation = next_generation[:]
             # Increment iteration
             iteration += 1
-        GenerationFactory.display_chromosome(current_generation,iteration)
+        # GenerationFactory.display_chromosome(current_generation,iteration)
         return max_ffs, min_ffs, ff_mean
 
     @staticmethod
