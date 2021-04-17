@@ -1,8 +1,8 @@
 from chromosome import Chromosome
 import numpy as np
-from fitness_function_collection import FitnessFunctionCollection
 from functools import *
 from genes_action import GenesAction
+
 
 class GenerationFactory:
 
@@ -13,7 +13,7 @@ class GenerationFactory:
         for i in range(0, settings.CHROMOSOME_POPULATION):
             chromosome = Chromosome()
             chromosome.genes = GenesAction.generate_random_genes(settings)
-            chromosome.fitness_function = FitnessFunctionCollection.count_ones(chromosome.genes)
+            chromosome.fitness_function = settings.FF(chromosome.genes)
             chromosomes_list.append(chromosome)
         GenerationFactory._set_reproduction_probability(chromosomes_list)
         return chromosomes_list
@@ -25,8 +25,8 @@ class GenerationFactory:
         max_ffs = [GenerationFactory.get_highest_ff(current_generation)]
         min_ffs = [GenerationFactory.get_lowest_ff(current_generation)]
         ff_mean = [GenerationFactory.get_ff_mean(current_generation)]
-        iter = 1
-        while (max_ffs == [] or max_ffs[-1] != settings.MAX_FF) and iter < settings.MAX_GENERATIONS:
+        iteration = 1
+        while (max_ffs == [] or max_ffs[-1] != settings.MAX_FF) and iteration < settings.MAX_GENERATIONS:
             # create next generation
             next_generation = GenerationFactory.create_next_generation(current_generation, settings)
             # get generation info
@@ -36,7 +36,8 @@ class GenerationFactory:
             # set new current generation
             current_generation = next_generation[:]
             # Increment iteration
-            iter += 1
+            iteration += 1
+        GenerationFactory.display_chromosome(current_generation,iteration)
         return max_ffs, min_ffs, ff_mean
 
     @staticmethod
@@ -53,15 +54,13 @@ class GenerationFactory:
             new_second_chromosome = GenesAction.create_successor_from_parents((second_chromosome, first_chromosome))
             # crossover
             if crossover_prob <= settings.CROSSOVER_PROB:
-                new_first_chromosome, new_second_chromosome = GenesAction.crossover_chromosomes(new_first_chromosome,
-                                                                                                new_second_chromosome, settings)
+                new_first_chromosome, new_second_chromosome = GenesAction.crossover_chromosomes(new_first_chromosome, new_second_chromosome, settings)
             # mutation
             if mut_prob <= settings.MUTATION_PROB:
-                new_first_chromosome, new_second_chromosome = GenesAction.mutate_chromosomes(new_first_chromosome,
-                                                                                             new_second_chromosome, settings)
+                new_first_chromosome, new_second_chromosome = GenesAction.mutate_chromosomes(new_first_chromosome, new_second_chromosome, settings)
             # set ff
-            new_first_chromosome.fitness_function = FitnessFunctionCollection.count_ones(new_first_chromosome.genes)
-            new_second_chromosome.fitness_function = FitnessFunctionCollection.count_ones(new_second_chromosome.genes)
+            new_first_chromosome.fitness_function = settings.FF(new_first_chromosome.genes)
+            new_second_chromosome.fitness_function = settings.FF(new_second_chromosome.genes)
             # append to the next generation
             next_generation.append(new_first_chromosome)
             next_generation.append(new_second_chromosome)
@@ -69,6 +68,7 @@ class GenerationFactory:
         GenerationFactory._set_reproduction_probability(next_generation)
         # show process for debug
         # GenerationFactory.display_chromosome(next_generation)
+
         return next_generation
 
     @staticmethod
@@ -78,8 +78,8 @@ class GenerationFactory:
             chromosome.reproduction_probability = (chromosome.fitness_function / ff_total)
 
     @staticmethod
-    def display_chromosome(chromosomes_list):
-        print("******************************************************************")
+    def display_chromosome(chromosomes_list,iteration):
+        print(f"{iteration}******************************************************************")
         for chromosome in chromosomes_list:
             print("---------------------------")
             print(f"FF  = {chromosome.fitness_function}")

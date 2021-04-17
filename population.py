@@ -12,63 +12,35 @@ class Population:
     def create_first_generation(self):
         self.chromosomes = GenerationFactory.random_chromosomes_generator(self.setting)
 
-    def find_the_most_powerful_chr(self, id):
+    def find_the_most_powerful_chr(self, number_of_experiment):
         max_ffs, min_ffs, ff_means = GenerationFactory.search_the_most_powerful_ff(self.chromosomes, self.setting)
-        generation_report = Report(max_ffs, min_ffs, ff_means, id)
+        generation_report = Report(max_ffs, min_ffs, ff_means, number_of_experiment)
         return generation_report
 
     def run_experiment(self):
         iteration = 0
         reports = []
         np.random.seed(47)
-        while iteration < self.setting.ITERATIONS:
+        while iteration < self.setting.NUMBER_OF_EXPERIMENTS:
             self.create_first_generation()
             reports.append(self.find_the_most_powerful_chr(iteration))
             iteration += 1
         return reports
+#
+#.
 
-# 1ro ----------------------------------
+def display_best_experiment(exp_reports):
+    min_number_of_generation = min(list(map(lambda r: r.number_of_generations, exp_reports)))
+    report_with_less_generations = list(filter(lambda r: r.number_of_generations ==min_number_of_generation,exp_reports ))
+    for report in report_with_less_generations:
+        report.display_results()
 
-# p = Population()
-# reports = p.run_experiment()
-# for report in reports:
-#     report.display_results()
-# experimentar 20 veces
-# pc = 0.7
-# pm = 0.001
-# 20 genes
-# 100 cromosomas
-# 2do ----------------------------------
-# experimentar 20 veces
-# pc = 0
-# pm = 0.7
-# 20 genes
-# 100 cromosomas
-# 3er ----------------------------------
-# experimentar 20 veces
-# pc = 0.7
-# pm = 0
-# 20 genes
-# 100 cromosomas
-# 4to ----------------------------------
-# experimentar 20 veces
-# pc = 0.9
-# pm = 0.001
-# 20 genes
-# 100 cromosomas
-# 5to ----------------------------------
-# experimentar 20 veces
-# pc = 0.3
-# pm = 0.001
-# 20 genes
-# 100 cromosomas
-# ¿Cu´al es la mejor opci´on de par´ametros seg´un los resultados obtenidos anteriormente? ¿Por qu´e?p = Population()
-# p = Population()
-# p.setting.CROSSOVER_PROB = 0.7
-# p.create_first_generation()
-# report = p.find_the_most_powerful_chr()
-# df = p.get_results_in_dataframe(max_ff, min_ff, mean_ff)
-# report.display_restuls()
-# p.graficar_x_vs_y_plot(df, "Generation", "FF Mean")
-# p.graficar_x_vs_y_plot(df, "Generation", "Min FF")
-# p.graficar_x_vs_y_plot(df, "Generation", "Max FF")
+p_10 = Population()
+p_10.setting.MAX_GENERATIONS = 1000
+p_10.setting.CHROMOSOME_POPULATION = 300
+p_10.setting.CROSSOVER_PROB = 0.8
+p_10.setting.MUTATION_PROB = 0.005
+p_10.setting.set_fitness_function("all ones")
+p_10.setting.NUMBER_OF_EXPERIMENTS = 1
+reports_10 = p_10.run_experiment()
+display_best_experiment(reports_10)

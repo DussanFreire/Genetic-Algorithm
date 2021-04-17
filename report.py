@@ -3,19 +3,19 @@ import matplotlib.pyplot as pl
 
 
 class Report:
-    def __init__(self, max_ffs, min_ffs, mean_ffs, id):
-        self.number_of_experiment = id
+    def __init__(self, max_ffs, min_ffs, mean_ffs, number_of_experiment):
+        self.number_of_experiment = number_of_experiment
         self.max_ffs_for_generation = max_ffs
         self.min_ffs_for_generation = min_ffs
         self.mean_ffs_for_generation = mean_ffs
         self.number_of_generations = len(max_ffs)
         self.df_data = self.get_results_in_dataframe()
 
-    def graficar_x_vs_y_plot(self, xlabel, ylabel):
-        self.df_data.plot(x=xlabel, y=ylabel, color='red', title='scatter plot : Tip by Total bill', alpha=1)
+    def graficar_x_vs_y_plot(self, x_label, y_label):
+        self.df_data.plot(x=x_label, y=y_label, color='red', title='scatter plot : Tip by Total bill', alpha=1)
         pl.grid()
-        pl.xlabel(xlabel)
-        pl.ylabel(ylabel)
+        pl.xlabel(x_label)
+        pl.ylabel(y_label)
         pl.legend()
         pl.show()
 
