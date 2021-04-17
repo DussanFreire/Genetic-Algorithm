@@ -34,13 +34,13 @@ def display_best_experiment(exp_reports):
     report_with_less_generations = list(filter(lambda r: r.number_of_generations ==min_number_of_generation,exp_reports ))
     for report in report_with_less_generations:
         report.display_results()
-
-p_10 = Population()
-p_10.setting.MAX_GENERATIONS = 1000
-p_10.setting.CHROMOSOME_POPULATION = 300
-p_10.setting.CROSSOVER_PROB = 0.8
-p_10.setting.MUTATION_PROB = 0.005
-p_10.setting.set_fitness_function("all ones")
-p_10.setting.NUMBER_OF_EXPERIMENTS = 1
-reports_10 = p_10.run_experiment()
-display_best_experiment(reports_10)
+#
+# p_10 = Population()
+# p_10.setting.MAX_GENERATIONS = 1000
+# p_10.setting.CHROMOSOME_POPULATION = 300
+# p_10.setting.CROSSOVER_PROB = 0.8
+# p_10.setting.MUTATION_PROB = 0.005
+# p_10.setting.set_fitness_function("all ones")
+# p_10.setting.NUMBER_OF_EXPERIMENTS = 1
+# reports_10 = p_10.run_experiment()
+# display_best_experiment(reports_10)
