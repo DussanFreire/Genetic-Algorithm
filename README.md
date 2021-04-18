@@ -310,6 +310,10 @@ The FF used was "queens in peace" which basically means that the FF is equal to 
 <div style="text-align:center"><img src="https://github.com/joangerard/genetic-algo-dussan/blob/main/imagenes/12_exp_br_png.png" />
   
 * Solutions found: [3, 1, 7, 4, 6, 0, 2, 5]
+
+<div style="text-align:center"><img src="https://github.com/joangerard/genetic-algo-dussan/blob/main/imagenes/solution.png" />
+  
+Don't judge my paint abilities  😂
 #### Worst result:
 * Experiment: 7
 * Number of generations: 1000
