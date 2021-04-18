@@ -78,18 +78,6 @@ class GenerationFactory:
             chromosome.reproduction_probability = (chromosome.fitness_function / ff_total)
 
     @staticmethod
-    def display_chromosome(chromosomes_list,iteration):
-        print(f"{iteration}******************************************************************")
-        for chromosome in chromosomes_list:
-            print("---------------------------")
-            print(f"FF  = {chromosome.fitness_function}")
-            print(f"Prob  = {chromosome.reproduction_probability}")
-            print(f"Action/s made   = {chromosome.actions_made}")
-            print(f"Father 1 genes  = {None if chromosome.fathers is None else chromosome.fathers[0].genes}")
-            print(f"Father 2 genes  = {None if chromosome.fathers is None else chromosome.fathers[1].genes}")
-            print(f"Genes:            {chromosome.genes}")
-
-    @staticmethod
     def get_highest_ff(generation):
         ff_list = list(map(lambda x: x.fitness_function, generation))
         return max(ff_list)
@@ -103,3 +91,14 @@ class GenerationFactory:
     def get_ff_mean(generation):
         ff_list = list(map(lambda x: x.fitness_function, generation))
         return sum(ff_list) / len(ff_list)
+    # @staticmethod
+    # def display_chromosome(chromosomes_list,iteration):
+    #     print(f"{iteration}******************************************************************")
+    #     for chromosome in chromosomes_list:
+    #         print("---------------------------")
+    #         print(f"FF  = {chromosome.fitness_function}")
+    #         print(f"Prob  = {chromosome.reproduction_probability}")
+    #         print(f"Action/s made   = {chromosome.actions_made}")
+    #         print(f"Father 1 genes  = {None if chromosome.fathers is None else chromosome.fathers[0].genes}")
+    #         print(f"Father 2 genes  = {None if chromosome.fathers is None else chromosome.fathers[1].genes}")
+    #         print(f"Genes:            {chromosome.genes}")
