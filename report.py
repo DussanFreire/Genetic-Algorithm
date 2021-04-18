@@ -3,8 +3,10 @@ import matplotlib.pyplot as pl
 
 
 class Report:
-    def __init__(self, max_ffs, min_ffs, mean_ffs, number_of_experiment):
+    def __init__(self, max_ffs, min_ffs, mean_ffs, number_of_experiment, solutions, setting):
+        self.setting = setting
         self.number_of_experiment = number_of_experiment
+        self.solutions = solutions
         self.max_ffs_for_generation = max_ffs
         self.min_ffs_for_generation = min_ffs
         self.mean_ffs_for_generation = mean_ffs
@@ -43,3 +45,11 @@ class Report:
         pl.grid()
         pl.legend()
         pl.show()
+
+    def display_solutions(self):
+        if self.solutions is not None:
+            print("Solutions found:")
+            for s in self.solutions:
+                print(s)
+        else:
+            print(f"No solution was found, in {self.setting.MAX_GENERATIONS:} generations")

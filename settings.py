@@ -22,3 +22,8 @@ class Settings:
             self.FF = FitnessFunctionCollection.all_ones
             self.MAX_FF = 38400
             self.HIGHEST_GENE_VALUE = 9
+        elif "queens in peace" == fitness_function:
+            self.FF = FitnessFunctionCollection.queens_in_peace
+            self.MAX_FF = 28
+            self.HIGHEST_GENE_VALUE = 7
+            self.NUMBER_GENES = 8

@@ -26,6 +26,7 @@ class GenerationFactory:
         min_ffs = [GenerationFactory.get_lowest_ff(current_generation)]
         ff_mean = [GenerationFactory.get_ff_mean(current_generation)]
         iteration = 1
+        solution = None
         while (max_ffs == [] or max_ffs[-1] != settings.MAX_FF) and iteration < settings.MAX_GENERATIONS:
             # create next generation
             next_generation = GenerationFactory.create_next_generation(current_generation, settings)
@@ -38,7 +39,9 @@ class GenerationFactory:
             # Increment iteration
             iteration += 1
         # GenerationFactory.display_chromosome(current_generation,iteration)
-        return max_ffs, min_ffs, ff_mean
+        if max_ffs[-1] == settings.MAX_FF:
+            solution = list(map(lambda x: x.genes, list(filter(lambda x: x.fitness_function == settings.MAX_FF, current_generation))))
+        return max_ffs, min_ffs, ff_mean, solution
 
     @staticmethod
     def create_next_generation(current_generation, settings):
@@ -66,9 +69,6 @@ class GenerationFactory:
             next_generation.append(new_second_chromosome)
         # set reproduction prob.
         GenerationFactory._set_reproduction_probability(next_generation)
-        # show process for debug
-        # GenerationFactory.display_chromosome(next_generation)
-
         return next_generation
 
     @staticmethod
