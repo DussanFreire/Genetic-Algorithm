@@ -10,7 +10,7 @@ class Settings:
         self.CROSSOVER_PROB = 0.7
         self.MUTATION_PROB = 0.001
         self.MAX_FF = 20
-        self.MAX_GENERATIONS = 100
+        self.MAX_GENERATIONS = 1000
         self.FF = FitnessFunctionCollection.count_ones
 
     def set_fitness_function(self, fitness_function):

@@ -20,7 +20,7 @@ class Population:
     def run_experiment(self):
         iteration = 0
         reports = []
-        np.random.seed(47)
+        np.random.seed(4754554)
         while iteration < self.setting.NUMBER_OF_EXPERIMENTS:
             self.create_first_generation()
             reports.append(self.find_the_most_powerful_chr(iteration))
