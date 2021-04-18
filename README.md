@@ -1,6 +1,16 @@
 # Genetic algorithem
-In the following work 3 different basic problems are solved using the genetic algorithm. In addition, a series of experiments are made by making small changes in the variables of the algorithm in order to better understand the algorithm and have better results.
 
+## Prerequisites:
+* Conda 4.9.2
+* JetBrains IDE
+## Installation
+* Open a terminal in the folder named "genetic-algo-dussan"
+* Then write: "jupyter notebook"
+* If you have problems openning a jupyeter notebook: <a href="https://jupyter.readthedocs.io/en/latest/running.html"> How to  open a notebook</a>
+## You can directly see the experiment implementation 
+* Experiment implementation: <a href="https://github.com/joangerard/genetic-algo-dussan/blob/main/Experiments.ipynb"> Implementation 😊 </a>
+## Introduction:
+In the following work 3 different basic problems are solved using the genetic algorithm. In addition, a series of experiments are made by making small changes in the variables of the algorithm in order to better understand the algorithm and have better results.
 ## 1. First Problem
 In this first problem, we have an initial population of 100 random chromosomes, each with 20 genes, which can have only two values, 0 and 1, which must be random for each chromosome.
 
