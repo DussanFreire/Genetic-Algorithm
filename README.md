@@ -1,6 +1,16 @@
 # Genetic algorithem
-In the following work 3 different basic problems are solved using the genetic algorithm. In addition, a series of experiments are made by making small changes in the variables of the algorithm in order to better understand the algorithm and have better results.
 
+## Prerequisites:
+* Conda 4.9.2
+* JetBrains IDE
+## Installation
+* Open a terminal in the folder named "genetic-algo-dussan"
+* Then write: "jupyter notebook"
+* If you have problems openning a jupyeter notebook: <a href="https://jupyter.readthedocs.io/en/latest/running.html"> How to  open a notebook</a>
+## You can directly see the experiment implementation 
+* Experiment implementation: <a href="https://github.com/joangerard/genetic-algo-dussan/blob/main/Experiments.ipynb"> Implementation 😊 </a>
+## Introduction:
+In the following work 3 different basic problems are solved using the genetic algorithm. In addition, a series of experiments are made by making small changes in the variables of the algorithm in order to better understand the algorithm and have better results.
 ## 1. First Problem
 In this first problem, we have an initial population of 100 random chromosomes, each with 20 genes, which can have only two values, 0 and 1, which must be random for each chromosome.
 
@@ -17,13 +27,19 @@ As "Fitness function" the amount of "1" in the genes was counted, which means th
 * Number of generations: 15
 * Max FF: 20
 * Min FF: 11
-* Mean FF: 14.66
+* Mean FF: 14.66 
+
+<div style="text-align:center"><img src="https://github.com/joangerard/genetic-algo-dussan/blob/main/imagenes/1_exp_br_png.png" />
+  
 #### Worst result:
 * Experiment: 17
 * Number of generations: 431
 * Max FF: 20
 * Min FF: 18
-* Mean FF: 18.98
+* Mean FF: 18.98 
+
+<div style="text-align:center"><img src="https://github.com/joangerard/genetic-algo-dussan/blob/main/imagenes/1_exp_wr_png.png" />
+ 
 #### Average Result
 * The average of generations required to find the strongest FF is 47.6
 #### Conclution:
@@ -51,13 +67,19 @@ The average of generations required to find the strongest FF is 1000.0
 * Number of generations: 20
 * Max FF: 20
 * Min FF: 12
-* Mean FF: 15.726
+* Mean FF: 15.726 
+
+<div style="text-align:center"><img src="https://github.com/joangerard/genetic-algo-dussan/blob/main/imagenes/3_exp_br_png.png" />
+  
 #### Worst result:
 * Experiment: 17
 * Number of generations: 1000
 * Max FF: 19
 * Min FF: 19
-* Mean FF: 19
+* Mean FF: 19 
+
+<div style="text-align:center"><img src="https://github.com/joangerard/genetic-algo-dussan/blob/main/imagenes/3_exp_wr_png.png" />
+  
 #### Average Result
 * The average of generations required to find the strongest FF is 81.5
 #### Conclution:
@@ -74,13 +96,19 @@ The average of generations required to find the strongest FF is 1000.0
 * Number of generations: 7
 * Max FF: 20
 * Min FF: 8
-* Mean FF: 13.79
+* Mean FF: 13.79 
+
+<div style="text-align:center"><img src="https://github.com/joangerard/genetic-algo-dussan/blob/main/imagenes/4_exp_rr_png.png" />
+  
 #### Worst result:
 * Experiment: 6
 * Number of generations: 44
 * Max FF: 20
 * Min FF: 14
-* Mean FF: 17.37
+* Mean FF: 17.37 
+
+<div style="text-align:center"><img src="https://github.com/joangerard/genetic-algo-dussan/blob/main/imagenes/4_exp_wr_png.png" />
+  
 #### Average Result
 * The average of generations required to find the strongest FF is 21.75
 #### Conclution:
@@ -97,13 +125,19 @@ The average of generations required to find the strongest FF is 1000.0
 * Number of generations: 18
 * Max FF: 20
 * Min FF: 10
-* Mean FF: 16.48
+* Mean FF: 16.48 
+
+<div style="text-align:center"><img src="https://github.com/joangerard/genetic-algo-dussan/blob/main/imagenes/5_exp_br_png.png" />
+  
 #### Worst result:
 * Experiment: 5
 * Number of generations: 1000
 * Max FF: 19
 * Min FF: 18
-* Mean FF: 18.96
+* Mean FF: 18.96 
+
+<div style="text-align:center"><img src="https://github.com/joangerard/genetic-algo-dussan/blob/main/imagenes/5_exp_wr_png.png" />
+  
 #### Average Result
 * The average of generations required to find the strongest FF is 232.35
 #### Conclution:
@@ -120,13 +154,19 @@ The average of generations required to find the strongest FF is 1000.0
 * Number of generations: 12
 * Max FF: 20
 * Min FF: 10
-* Mean FF: 14.44
+* Mean FF: 14.44 
+
+<div style="text-align:center"><img src="https://github.com/joangerard/genetic-algo-dussan/blob/main/imagenes/6_exp_br_png.png" />
+  
 #### Worst result:
 * Experiment: 3
 * Number of generations: 312
 * Max FF: 20
 * Min FF: 19
-* Mean FF: 19.02
+* Mean FF: 19.02 
+
+<div style="text-align:center"><img src="https://github.com/joangerard/genetic-algo-dussan/blob/main/imagenes/6_exp_wr_png.png" />
+  
 #### Average Result
 * The average of generations required to find the strongest FF is 44.05
 #### Conclution:
@@ -145,13 +185,19 @@ The average of generations required to find the strongest FF is 1000.0
 * Number of generations: 16
 * Max FF: 20
 * Min FF: 13
-* Mean FF: 16.46
+* Mean FF: 16.46 
+
+<div style="text-align:center"><img src="https://github.com/joangerard/genetic-algo-dussan/blob/main/imagenes/7_exp_br_png.png" />
+
 #### Worst result:
 * Experiment: 2
 * Number of generations: 56
 * Max FF: 20
 * Min FF: 16
-* Mean FF: 17.99
+* Mean FF: 17.99 
+
+<div style="text-align:center"><img src="https://github.com/joangerard/genetic-algo-dussan/blob/main/imagenes/7_exp_wr_png.png" />
+  
 #### Average Result
 * The average of generations required to find the strongest FF is 27.4
 #### Conclution:
@@ -169,13 +215,19 @@ The average of generations required to find the strongest FF is 1000.0
 * Number of generations: 5
 * Max FF: 20
 * Min FF: 4
-* Mean FF: 11.971
+* Mean FF: 11.971 
+
+<div style="text-align:center"><img src="https://github.com/joangerard/genetic-algo-dussan/blob/main/imagenes/8_exp_br_png.png" />
+ 
 #### Worst result:
 * Experiment: 18
 * Number of generations: 18
 * Max FF: 20
 * Min FF: 10
-* Mean FF: 15.537
+* Mean FF: 15.537 
+
+<div style="text-align:center"><img src="https://github.com/joangerard/genetic-algo-dussan/blob/main/imagenes/8_exp_wr_png.png" />
+  
 #### Average Result
 * The average of generations required to find the strongest FF is 12.0
 #### Conclution:
@@ -186,29 +238,10 @@ The average of generations required to find the strongest FF is 1000.0
 In this second problem we have an initial population of 100 random chromosomes, each with 20 genes, which can have only 10 values, 0-9, which must be random for each chromosome.
 
 The objective was to find a chromosome whose genes were all of value "1", the FF that was used was the following:
-for gene in genes:
-def all ones(genes):
-  FF = 0
-  for gene in genes:
-      if gene == 1:
-          FF += 1920
-      elif gene == 0 or gene == 2:
-          FF += 960
-      elif gene == 3:
-          FF += 480
-      elif gene == 4:
-          FF += 240
-      elif gene == 5:
-          FF += 120
-      elif gene == 6:
-          FF += 60
-      elif gene == 7:
-          FF += 30
-      elif gene == 8:
-          FF += 10
-      elif gene == 9:
-          FF += 0
-    return FF
+for gene in genes: 
+
+<div style="text-align:center"><img src="https://github.com/joangerard/genetic-algo-dussan/blob/main/imagenes/allones.png" />
+  
 In this way the strongest chromosome would have a value of 38.400
 
 ### Tenth Experimet
@@ -236,13 +269,19 @@ Experiment: 7
 * Number of generations: 39
 * Max FF: 38400
 * Min FF: 18900
-* Mean FF: 28418.82
+* Mean FF: 28418.82 
+
+<div style="text-align:center"><img src="https://github.com/joangerard/genetic-algo-dussan/blob/main/imagenes/11_exp_br_png.png" />
+  
 #### Worst result:
 * Experiment: 5
 * Number of generations: 68
 * Max FF: 38400
 * Min FF: 26220
-* Mean FF: 32652.48
+* Mean FF: 32652.48 
+
+<div style="text-align:center"><img src="https://github.com/joangerard/genetic-algo-dussan/blob/main/imagenes/11_exp_wr_png.png" />
+  
 #### Average Result
 * The average of generations required to find the strongest FF is 53.0
 #### Conclution:
@@ -266,14 +305,20 @@ The FF used was "queens in peace" which basically means that the FF is equal to 
 * Number of generations: 44
 * Max FF: 28
 * Min FF: 15
-* Mean FF: 21.946
+* Mean FF: 21.946 
+
+<div style="text-align:center"><img src="https://github.com/joangerard/genetic-algo-dussan/blob/main/imagenes/12_exp_br_png.png" />
+  
 * Solutions found: [3, 1, 7, 4, 6, 0, 2, 5]
 #### Worst result:
 * Experiment: 7
 * Number of generations: 1000
 * Max FF: 26
 * Min FF: 23
-* Mean FF: 25.944
+* Mean FF: 25.944 
+
+<div style="text-align:center"><img src="https://github.com/joangerard/genetic-algo-dussan/blob/main/imagenes/12_exp_wr_png.png" />
+  
 #### Average Result
 * The average of generations required to find the strongest FF is 178.3
 #### Conclution:
