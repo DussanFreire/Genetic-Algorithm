@@ -285,7 +285,7 @@ Experiment: 7
 #### Average Result
 * The average of generations required to find the strongest FF is 53.0
 #### Conclution:
-* Compared to the previous experiment, it was observed that increasing the chromosome population is very important to improve the performance of the algorithm in this experiment
+* Compared to the previous experiment (experiment 10), it was observed that increasing the chromosome population is very important to improve the performance of the algorithm in this experiment. Unlike the previous problem, where the genes could only have a value between 0 and 1, now the range of values increased so in the same way the chromosome population must increase in order to obtain better results.
 
 ## 3. Third Problem (Problem of the 8 queens)
 
