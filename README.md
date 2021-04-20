@@ -112,7 +112,7 @@ The average of generations required to find the strongest FF is 1000.0
 #### Average Result
 * The average of generations required to find the strongest FF is 21.75
 #### Conclution:
-* For this particular experiment it seems that having a high crossover is a great advantage
+* For this particular experiment it seems that having a high crossover is a great advantage. 
 
 ### Fifth Experiment
 #### Experiment parameters:
@@ -141,7 +141,7 @@ The average of generations required to find the strongest FF is 1000.0
 #### Average Result
 * The average of generations required to find the strongest FF is 232.35
 #### Conclution:
-* A low crossover does not allow most experiments to find the strongest chromosome, although the generations get stronger and stronger. This may be due to the selection of chromosomes based on probabilistic weights on their FF
+* A low crossover does not allow most experiments to find the strongest chromosome, although the generations get stronger and stronger. This may be due to the selection of chromosomes based on probabilistic weights on their FF. Making a comparison with the previous examples, it can be seen that the average of the generations of the experiments is much better with a crossover probability of 0.9 and with a mutation probability of 0.001. This is reflected in the calculated average of the fourth experiment, 21.75, which is much lower than our previous experiments.
 
 ### Sixth Experiment
 #### Experiment parameters:
@@ -231,7 +231,7 @@ The average of generations required to find the strongest FF is 1000.0
 #### Average Result
 * The average of generations required to find the strongest FF is 12.0
 #### Conclution:
-* This experiment is the one that had the best result, of all the experiments within this experiment they had superior results than the previous ones, which indicates that having a high population is crucial to having good results.
+* This experiment is the one that had the best result, of all the experiments within this experiment they had superior results than the previous ones, which indicates that having a high population is crucial to having good results. A large population can be an important factor, because it prevents genes from being identical in just a few generations. In addition, it allows that there is more probability that all genes have a value of 1 in some chromosome of the population, which is very beneficial for the algorithm.
 
 
 ## 2. Second Problem
@@ -286,7 +286,7 @@ Experiment: 7
 * The average of generations required to find the strongest FF is 53.0
 #### Conclution:
 * Compared to the previous experiment, it was observed that increasing the chromosome population is very important to improve the performance of the algorithm in this experiment
-* 
+
 ## 3. Third Problem (Problem of the 8 queens)
 
 The genes on the chromosomes were first designed to represent the checkerboard situation. It was decided that the genes per chromosome were 8, where each gene represents a column of the board, in its respective position. The content of each gene would be equal to the row occupied by the queen.
